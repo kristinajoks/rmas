@@ -1,0 +1,28 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:gravity="center"
+    android:orientation="vertical">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Izabrati opciju:"
+        android:textSize="25dp"
+        android:padding="16dp" />
+
+    <Button
+        android:id="@+id/btnCaptureImage"
+        android:layout_width="200dp"
+        android:layout_height="wrap_content"
+        android:text="Snimi fotografiju"
+        android:padding="16dp" />
+
+    <Button
+        android:id="@+id/btnInsertFromGallery"
+        android:layout_width="200dp"
+        android:layout_height="wrap_content"
+        android:text=" Biraj iz galerije "
+        android:padding="16dp" />
+
+</LinearLayout>
