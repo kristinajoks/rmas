@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="40dp"
+    android:orientation="vertical">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Uneti informacije o objektu"
+        android:textColor="@color/black"
+        android:textSize="20dp"
+        android:layout_marginTop="10dp"
+        android:textStyle="bold" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Izabrati tip objekta"
+        android:textColor="@color/black"
+        android:textSize="15dp"
+        android:layout_marginTop="10dp"
+        />
+    <Spinner
+        android:id="@+id/objType_spinner"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:background="@color/lightpurple"
+        android:entries="@array/obj_options"
+        android:prompt="@string/objType_prompt"
+        android:layout_marginTop="0dp" />
+
+    <com.google.android.material.textfield.TextInputLayout
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/obj_desc"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Opis"
+            android:background="@color/lightpurple"
+            android:inputType="textMultiLine"/>
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Izabrati tip aktivnosti dostupnog u objektu"
+        android:textColor="@color/black"
+        android:textSize="15dp"
+        android:layout_marginTop="10dp"
+        />
+    <Spinner
+        android:id="@+id/objPurpose_spinner"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:background="@color/lightpurple"
+        android:entries="@array/objPurpose_options"
+        android:prompt="@string/objPurpose_prompt"
+        android:layout_marginTop="0dp" />
+
+    <Button
+        android:id="@+id/btnAddInfoObj"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="15dp"
+        android:background="@drawable/round_btn"
+        android:text="Potvrdi"
+        android:textSize="18dp"
+        android:textStyle="bold"
+        android:layout_gravity="end"
+        />
+
+</LinearLayout>

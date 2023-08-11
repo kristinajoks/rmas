@@ -1,4 +1,18 @@
 <resources>
     <string name="app_name">RMAS18203</string>
     <string name="title_activity_maps">MapsActivity</string>
+
+    <string name="objType_prompt">Tip objekta</string>
+    <string-array name="obj_options">
+        <item>Biblioteka</item>
+        <item>Kafić</item>
+    </string-array>
+
+    <string name="objPurpose_prompt">Tip aktivnosti u objektu</string>
+    <string-array name="objPurpose_options">
+        <item>Pozajmica knjiga</item>
+        <item>Literarni događaji</item>
+        <item>Oba</item>
+    </string-array>
+
 </resources>
