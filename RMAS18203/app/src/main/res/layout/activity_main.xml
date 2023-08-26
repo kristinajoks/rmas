@@ -14,16 +14,16 @@
         android:layout_height="wrap_content"
         android:text="Dobrodošli"
         android:textColor="@color/black"
-        android:textSize="25dp"
+        android:textSize="45dp"
         android:textStyle="bold" />
 
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Log in"
-        android:textColor="@color/black"
-        android:textSize="50dp"
-        android:textStyle="bold" />
+<!--    <TextView-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:text="Log in"-->
+<!--        android:textColor="@color/black"-->
+<!--        android:textSize="50dp"-->
+<!--        android:textStyle="bold" />-->
 
     <com.google.android.material.textfield.TextInputLayout
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
