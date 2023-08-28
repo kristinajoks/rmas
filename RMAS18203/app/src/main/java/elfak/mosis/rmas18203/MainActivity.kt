@@ -42,7 +42,7 @@ class MainActivity : AppCompatActivity() {
                     task ->
                 if (task.isSuccessful) {
                     Toast.makeText(this@MainActivity, "Prijava uspešna", Toast.LENGTH_SHORT).show()
-                    val intent = Intent(this@MainActivity, MapsActivity::class.java)
+                    val intent = Intent(this@MainActivity, HomePage::class.java)
                     startActivity(intent)
                     finish()
                 }

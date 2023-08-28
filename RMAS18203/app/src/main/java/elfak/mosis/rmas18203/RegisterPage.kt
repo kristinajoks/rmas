@@ -57,6 +57,7 @@ class RegisterPage : AppCompatActivity() {
         storageRef = storage.reference
 
         image = binding.profileImage
+//        binding.signUp.isEnabled = false
 
         galleryImage = registerForActivityResult(
             ActivityResultContracts.GetContent(),
@@ -108,7 +109,11 @@ class RegisterPage : AppCompatActivity() {
 
     private fun validateForm(name:String, surname: String, number: String, email: String, password: String, passRep: String) : Boolean
     {
-        if (name.isEmpty()) {
+        if (selectedImageUri == null) {
+            Toast.makeText(this@RegisterPage, "Morate odabrati sliku pre nego što se prijavite.", Toast.LENGTH_SHORT).show()
+            return false
+        } //dodato iznad
+        else if (name.isEmpty()) {
             Toast.makeText(this@RegisterPage, "Uneti ime", Toast.LENGTH_SHORT).show()
             return false
         }
@@ -169,6 +174,7 @@ class RegisterPage : AppCompatActivity() {
         btnInsertFromGallery.setOnClickListener {
             galleryImage.launch("image/*")
             dialog.dismiss()
+
         }
     }
 
@@ -217,7 +223,7 @@ class RegisterPage : AppCompatActivity() {
                     }
                     Toast.makeText(this, "Slika je odabrana!", Toast.LENGTH_SHORT).show()
 
-
+//                    binding.signUp.isEnabled = true //
                 }
             }
         }
@@ -272,20 +278,27 @@ class RegisterPage : AppCompatActivity() {
 
     private fun saveUserDataToDatabase(userID: String, name: String, surname: String, email: String, number: String) {
         val user = User(email, name, surname, number, profileImg)
-        val databaseReference = FirebaseDatabase.getInstance().getReference("users")
-        databaseReference.child(userID).setValue(user)
-            .addOnSuccessListener {
-                binding.email.text?.clear()
-                binding.password.text?.clear()
-                binding.passwordRepeated.text?.clear()
-                binding.name.text?.clear()
-                binding.surname.text?.clear()
-                binding.phonenum.text?.clear()
-                profileImg = ""
-                Toast.makeText(this, "Podaci su sačuvani", Toast.LENGTH_SHORT).show()
-            }
-            .addOnFailureListener {
-                Toast.makeText(this, "Podaci nisu sačuvani", Toast.LENGTH_SHORT).show()
-            }
+
+        if (selectedImageUri != null) { //
+            val databaseReference = FirebaseDatabase.getInstance().getReference("users")
+            databaseReference.child(userID).setValue(user)
+                .addOnSuccessListener {
+                    binding.email.text?.clear()
+                    binding.password.text?.clear()
+                    binding.passwordRepeated.text?.clear()
+                    binding.name.text?.clear()
+                    binding.surname.text?.clear()
+                    binding.phonenum.text?.clear()
+                    profileImg = ""
+                    Toast.makeText(this, "Podaci su sačuvani", Toast.LENGTH_SHORT).show()
+                }
+                .addOnFailureListener {
+                    Toast.makeText(this, "Podaci nisu sačuvani", Toast.LENGTH_SHORT).show()
+                }
+
+        }
+        else{
+            Toast.makeText(this, "Morate odabrati sliku pre nego što se prijavite.", Toast.LENGTH_SHORT).show()
+        }
     }
 }
