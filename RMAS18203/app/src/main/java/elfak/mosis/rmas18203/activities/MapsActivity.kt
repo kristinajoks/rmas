@@ -1,4 +1,4 @@
-package elfak.mosis.rmas18203.Activities
+package elfak.mosis.rmas18203.activities
 
 import android.Manifest
 import android.app.AlertDialog

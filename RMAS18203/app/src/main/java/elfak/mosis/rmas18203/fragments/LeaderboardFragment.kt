@@ -1,4 +1,4 @@
-package elfak.mosis.rmas18203.Fragments
+package elfak.mosis.rmas18203.fragments
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -9,8 +9,8 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import elfak.mosis.rmas18203.Adapter.MyAdapter
-import elfak.mosis.rmas18203.Models.UserViewModel
+import elfak.mosis.rmas18203.adapter.MyAdapter
+import elfak.mosis.rmas18203.models.UserViewModel
 import elfak.mosis.rmas18203.R
 
 class LeaderboardFragment : Fragment() {

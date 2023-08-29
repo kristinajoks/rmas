@@ -1,4 +1,4 @@
-package elfak.mosis.rmas18203.Models
+package elfak.mosis.rmas18203.models
 
 data class User(val username:String?=null,
                 val firstName:String?= null,

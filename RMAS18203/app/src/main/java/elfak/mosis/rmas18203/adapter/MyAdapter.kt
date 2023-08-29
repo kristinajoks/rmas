@@ -1,11 +1,11 @@
-package elfak.mosis.rmas18203.Adapter
+package elfak.mosis.rmas18203.adapter
 
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
-import elfak.mosis.rmas18203.Models.User
+import elfak.mosis.rmas18203.models.User
 import elfak.mosis.rmas18203.R
 
 class MyAdapter : RecyclerView.Adapter<MyAdapter.MyViewHolder>() {

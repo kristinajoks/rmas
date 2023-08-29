@@ -1,4 +1,4 @@
-package elfak.mosis.rmas18203.Activities
+package elfak.mosis.rmas18203.activities
 
 import android.content.Intent
 import android.os.Bundle

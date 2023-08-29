@@ -1,5 +1,6 @@
 
 import android.content.Context
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -11,7 +12,8 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.database.*
 import com.google.firebase.ktx.Firebase
-import elfak.mosis.rmas18203.Models.User
+import elfak.mosis.rmas18203.activities.MainActivity
+import elfak.mosis.rmas18203.models.User
 import elfak.mosis.rmas18203.databinding.FragmentProfileBinding
 
 class ProfileFragment : Fragment() {
@@ -67,11 +69,10 @@ class ProfileFragment : Fragment() {
             }
         })
 
-        // Set up the log-off button
         binding.logOffButton.setOnClickListener {
-            // Sign out the user and navigate to the login screen
             auth.signOut()
-            // Add your navigation logic here, e.g., navigate to the login fragment/activity
+            val intent = Intent(fragmentContext, MainActivity::class.java)
+            startActivity(intent)
         }
     }
 }
