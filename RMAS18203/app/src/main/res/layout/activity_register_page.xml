@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:background="@drawable/logback"
     android:padding="40dp"
-    tools:context=".RegisterPage"
+    tools:context=".Activities.RegisterPage"
     android:orientation="vertical">
 
 <!--    <TextView-->

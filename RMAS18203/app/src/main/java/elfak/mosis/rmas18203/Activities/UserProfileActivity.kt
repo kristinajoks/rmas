@@ -1,21 +1,28 @@
-package elfak.mosis.rmas18203
+package elfak.mosis.rmas18203.Activities
 
+import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
-import elfak.mosis.rmas18203.databinding.ActivityHomePageBinding
+import elfak.mosis.rmas18203.Fragments.LeaderboardFragment
+import elfak.mosis.rmas18203.Fragments.MapFragment
+import elfak.mosis.rmas18203.Fragments.PlacesFragment
+import elfak.mosis.rmas18203.R
+import elfak.mosis.rmas18203.databinding.ActivityUserProfileBinding
 
-class HomePage : AppCompatActivity() {
+//razmislicemo
+class UserProfileActivity : AppCompatActivity() {
 
-    private lateinit var binding: ActivityHomePageBinding
+    private lateinit var binding: ActivityUserProfileBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding = ActivityHomePageBinding.inflate(layoutInflater)
-        setContentView(binding.root)
-        replaceFragment(MapFragment())
+        binding = ActivityUserProfileBinding.inflate(layoutInflater)
 
-        binding.bottomNavigationView.setOnItemSelectedListener { menuItem ->
+
+        setContentView(binding.root)
+
+        binding.bottomNavigationView2.setOnItemSelectedListener { menuItem ->
             when (menuItem.itemId) {
                 R.id.home -> {
                     replaceFragment(MapFragment())
@@ -30,7 +37,10 @@ class HomePage : AppCompatActivity() {
                     true
                 }
                 R.id.profile -> {
-                    replaceFragment(ProfileFragment())
+                    //razmislicemo
+                    //replaceFragment(ProfileFragment())
+                    val intent = Intent(this@UserProfileActivity, UserProfileActivity::class.java)
+                    startActivity(intent)
                     true
                 }
                 else -> false
@@ -42,7 +52,7 @@ class HomePage : AppCompatActivity() {
 
         val fragmentManager = supportFragmentManager
         val fragmentTransaction = fragmentManager.beginTransaction()
-        fragmentTransaction.replace(R.id.frame_layout, fragment)
+        fragmentTransaction.replace(R.id.frame_layout2, fragment)
         fragmentTransaction.commit()
     }
 }

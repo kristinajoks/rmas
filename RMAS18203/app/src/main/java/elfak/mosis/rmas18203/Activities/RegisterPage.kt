@@ -1,4 +1,4 @@
-package elfak.mosis.rmas18203
+package elfak.mosis.rmas18203.Activities
 
 import android.app.Activity
 import android.app.AlertDialog
@@ -28,6 +28,8 @@ import com.karumi.dexter.MultiplePermissionsReport
 import com.karumi.dexter.PermissionToken
 import com.karumi.dexter.listener.PermissionRequest
 import com.karumi.dexter.listener.multi.MultiplePermissionsListener
+import elfak.mosis.rmas18203.Models.User
+import elfak.mosis.rmas18203.R
 import elfak.mosis.rmas18203.databinding.ActivityRegisterPageBinding
 import java.io.ByteArrayOutputStream
 

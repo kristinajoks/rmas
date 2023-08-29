@@ -1,4 +1,4 @@
-package elfak.mosis.rmas18203
+package elfak.mosis.rmas18203.Activities
 
 import android.Manifest
 import android.app.AlertDialog
@@ -25,6 +25,7 @@ import com.google.android.gms.maps.model.Marker
 import com.google.android.gms.maps.model.MarkerOptions
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
+import elfak.mosis.rmas18203.R
 import elfak.mosis.rmas18203.databinding.ActivityMapsBinding
 
 class MapsActivity : AppCompatActivity(), OnMapReadyCallback, GoogleMap.OnMarkerClickListener,
