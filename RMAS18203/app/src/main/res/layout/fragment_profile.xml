@@ -12,7 +12,8 @@
         android:scaleType="centerCrop"
         android:layout_centerHorizontal="true"
         android:src="@drawable/default_profile_image"
-    android:contentDescription="Profile Picture"
+        android:layout_marginTop="10dp"
+        android:contentDescription="Profile Picture"
         />
 
     <TextView
@@ -21,7 +22,7 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/profileImageView"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="30dp"
+        android:layout_marginTop="20dp"
         android:text="First Name"
         android:textSize="18sp" />
 
@@ -62,11 +63,12 @@
         android:layout_below="@+id/pointsTextView"
         android:layout_alignParentStart="true"
         android:layout_alignParentEnd="true"
-        android:layout_marginStart="300dp"
-        android:layout_marginEnd="20dp"
-        android:layout_marginTop="300dp"
+        android:layout_marginStart="260dp"
+        android:layout_marginEnd="40dp"
+        android:layout_marginTop="280dp"
         android:drawableLeft="@drawable/round_logout_24"
         android:textSize="15sp"
+        android:contentDescription="Log out"
         android:background="@drawable/round_btn"
         />
 
@@ -75,8 +77,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/logOffButton"
-        android:layout_marginStart="300dp"
-        android:layout_marginEnd="10dp"
+        android:layout_marginStart="250dp"
+        android:layout_marginEnd="30dp"
         android:text="Log out"
         android:textSize="18sp"
         android:textColor="@color/pozadina"/>
