@@ -3,6 +3,7 @@ package elfak.mosis.rmas18203.models
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import elfak.mosis.rmas18203.data.User
 import elfak.mosis.rmas18203.repository.UserRepository
 
 class UserViewModel : ViewModel() {

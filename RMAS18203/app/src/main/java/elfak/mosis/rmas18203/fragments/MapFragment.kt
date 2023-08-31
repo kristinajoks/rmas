@@ -12,6 +12,7 @@ import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.app.ActivityCompat
 import androidx.fragment.app.Fragment
 import elfak.mosis.rmas18203.R
+import elfak.mosis.rmas18203.models.PlaceViewModel
 import org.osmdroid.config.Configuration
 import org.osmdroid.util.GeoPoint
 import org.osmdroid.views.MapView
@@ -22,6 +23,8 @@ import org.osmdroid.views.overlay.mylocation.MyLocationNewOverlay
 class MapFragment : Fragment() {
 
     private lateinit var map: MapView
+    private lateinit var placeViewModel: PlaceViewModel
+    private var centerMe : Boolean = false
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
     }
@@ -53,7 +56,13 @@ class MapFragment : Fragment() {
 
         map.controller.setZoom(17.0)
         val startPoint = GeoPoint(43.3209, 21.8958)
+
+        if(centerMe){
+            //TODO napisati centriranje mape na moju lokaciju kada je to dozvoljeno, fali preuzimanje koordinata nekako
+        }
+
         map.controller.setCenter(startPoint)
+
     }
 
     private val requesPermissionLauncher = registerForActivityResult(ActivityResultContracts.RequestPermission())
@@ -70,6 +79,7 @@ class MapFragment : Fragment() {
         var myLocationOverlay = MyLocationNewOverlay(GpsMyLocationProvider(activity), map)
         myLocationOverlay.enableMyLocation()
         map.overlays.add(myLocationOverlay)
+        centerMe = true
     }
 
     override fun onResume() {

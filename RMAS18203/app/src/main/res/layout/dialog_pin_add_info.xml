@@ -2,7 +2,9 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:padding="40dp"
+    android:padding="20dp"
+    android:paddingStart="30dp"
+    android:paddingEnd="30dp"
     android:orientation="vertical">
 
     <TextView
@@ -13,6 +15,22 @@
         android:textSize="20dp"
         android:layout_marginTop="10dp"
         android:textStyle="bold" />
+
+    <com.google.android.material.textfield.TextInputLayout
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/obj_name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Naziv"
+            android:background="@color/lightpurple"
+            android:inputType="textMultiLine"/>
+
+    </com.google.android.material.textfield.TextInputLayout>
 
     <TextView
         android:layout_width="match_parent"
@@ -50,7 +68,7 @@
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Izabrati tip aktivnosti dostupnog u objektu"
+        android:text="Izabrati tip aktivnosti dostupnih u objektu"
         android:textColor="@color/black"
         android:textSize="15dp"
         android:layout_marginTop="10dp"
@@ -65,15 +83,94 @@
         android:layout_marginTop="0dp" />
 
     <Button
-        android:id="@+id/btnAddInfoObj"
+        android:id="@+id/btnAddLatLng"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="15dp"
+        android:layout_marginTop="50dp"
         android:background="@drawable/round_btn"
-        android:text="Potvrdi"
-        android:textSize="18dp"
+        android:text="preuzmi"
+        android:textSize="13dp"
         android:textStyle="bold"
         android:layout_gravity="end"
         />
+
+    <com.google.android.material.textfield.TextInputLayout
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="0dp">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/obj_longitude"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Geo. dužina (longitude)"
+            android:background="@color/lightpurple"
+            android:inputType="textMultiLine"/>
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/obj_latitude"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Geo. širina (latitude)"
+            android:background="@color/lightpurple"
+            android:inputType="textMultiLine"/>
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginTop="10dp"
+        >
+
+        <Space
+            android:layout_width="0dp"
+            android:layout_height="1dp"
+            android:layout_weight="0.3" />
+
+        <Button
+            android:id="@+id/btnCancelInfoObj"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="15dp"
+            android:background="@drawable/round_btn"
+            android:text="Poništi"
+            android:textSize="18dp"
+            android:textStyle="bold"
+            android:layout_gravity="end"
+            />
+
+        <Space
+            android:layout_width="0dp"
+            android:layout_height="1dp"
+            android:layout_weight="1" />
+
+        <Button
+            android:id="@+id/btnAddInfoObj"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="15dp"
+            android:background="@drawable/round_btn"
+            android:text="Potvrdi"
+            android:textSize="18dp"
+            android:textStyle="bold"
+            android:layout_gravity="end"
+            />
+
+        <Space
+            android:layout_width="0dp"
+            android:layout_height="1dp"
+            android:layout_weight="0.3" />
+    </LinearLayout>
 
 </LinearLayout>

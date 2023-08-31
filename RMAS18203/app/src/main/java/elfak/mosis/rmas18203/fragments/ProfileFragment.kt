@@ -13,7 +13,7 @@ import com.google.firebase.auth.ktx.auth
 import com.google.firebase.database.*
 import com.google.firebase.ktx.Firebase
 import elfak.mosis.rmas18203.activities.MainActivity
-import elfak.mosis.rmas18203.models.User
+import elfak.mosis.rmas18203.data.User
 import elfak.mosis.rmas18203.databinding.FragmentProfileBinding
 
 class ProfileFragment : Fragment() {

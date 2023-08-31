@@ -7,7 +7,7 @@ import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
-import elfak.mosis.rmas18203.models.User
+import elfak.mosis.rmas18203.data.User
 
 class UserRepository {
 
