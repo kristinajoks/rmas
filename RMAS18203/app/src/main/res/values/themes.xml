@@ -32,4 +32,9 @@
         <item name="android:maxWidth">56dp</item>
         <item name="android:maxHeight">56dp</item>
     </style>
+
+    <style name="Button.RoundGray" parent="Widget.MaterialComponents.Button">
+        <item name="android:background">@android:color/darker_gray</item>
+        <item name="android:radius">20dp</item>
+    </style>
 </resources>

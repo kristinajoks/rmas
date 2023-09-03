@@ -47,4 +47,31 @@ class UserRepository {
             }
         })
     }
+
+    fun getUserIdByName(firstName: String, lastName: String, callback: (String?) -> Unit) {
+        databaseReference.addListenerForSingleValueEvent(object : ValueEventListener {
+            override fun onDataChange(snapshot: DataSnapshot) {
+                try {
+                    val userId = snapshot.children
+                        .firstOrNull { dataSnapshot ->
+                            val user = dataSnapshot.getValue(User::class.java)
+                            user?.firstName == firstName && user?.lastName == lastName
+                        }?.key
+
+                    Log.d("nebitno",  "UserRepository: $userId")
+
+                    callback(userId)
+                } catch (e: Exception) {
+                    e.printStackTrace()
+                    callback(null)
+                }
+            }
+
+            override fun onCancelled(error: DatabaseError) {
+                Log.d("UserRepository", "getUserIdByName: ${error.message}")
+                callback(null)
+            }
+        })
+    }
+
 }

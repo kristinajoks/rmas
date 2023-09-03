@@ -1,5 +1,6 @@
 package elfak.mosis.rmas18203.models
 
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -19,6 +20,21 @@ class UserViewModel : ViewModel() {
 
     fun getRepository(): UserRepository {
         return repository
+    }
+
+    fun fetchAllUsers() {
+        repository.loadUsers(_allUsers)
+    }
+
+    fun getUserByName(firstName: String, lastName: String): LiveData<String?> {
+        val resultLiveData = MutableLiveData<String?>()
+
+        repository.getUserIdByName(firstName, lastName) { userId: String? ->
+            resultLiveData.postValue(userId)
+            Log.d("nebitno",  "UserViewModel: ${userId}")
+        }
+
+        return resultLiveData
     }
 
 }

@@ -28,8 +28,8 @@ import com.karumi.dexter.MultiplePermissionsReport
 import com.karumi.dexter.PermissionToken
 import com.karumi.dexter.listener.PermissionRequest
 import com.karumi.dexter.listener.multi.MultiplePermissionsListener
-import elfak.mosis.rmas18203.data.User
 import elfak.mosis.rmas18203.R
+import elfak.mosis.rmas18203.data.User
 import elfak.mosis.rmas18203.databinding.ActivityRegisterPageBinding
 import java.io.ByteArrayOutputStream
 
@@ -135,6 +135,10 @@ class RegisterPage : AppCompatActivity() {
             Toast.makeText(this@RegisterPage, "Uneti Email", Toast.LENGTH_SHORT).show()
             return false
         }
+        else if (isUsernameTaken(email)) {
+            Toast.makeText(this@RegisterPage, "Korisničko ime je već zauzeto.", Toast.LENGTH_SHORT).show()
+            return false
+        }
         else if (!Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
             Toast.makeText(this@RegisterPage, "Uneti validan Email", Toast.LENGTH_SHORT).show()
             return false
@@ -153,6 +157,11 @@ class RegisterPage : AppCompatActivity() {
             return false
         }
         else return true
+    }
+
+    private fun isUsernameTaken(email: String): Boolean {
+        return false
+        //TODO provera da li je korisnicko ime zauzeto
     }
 
     private fun showOptionsDialog() {
@@ -279,7 +288,7 @@ class RegisterPage : AppCompatActivity() {
     }
 
     private fun saveUserDataToDatabase(userID: String, name: String, surname: String, email: String, number: String) {
-        val user = User(email, name, surname, number, profileImg)
+        val user = User(email, name, surname, number, profileImg, 0, "", HashMap<String,String>(), HashMap<String,String>(), HashMap<String,String>())
 
         if (selectedImageUri != null) { //
             val databaseReference = FirebaseDatabase.getInstance().getReference("users")
