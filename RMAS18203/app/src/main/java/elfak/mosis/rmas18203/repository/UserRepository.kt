@@ -59,7 +59,6 @@ class UserRepository {
                             user?.firstName == firstName && user?.lastName == lastName
                         }?.key
 
-                    Log.d("nebitno",  "UserRepository: $userId")
 
                     callback(userId)
                 } catch (e: Exception) {
@@ -109,7 +108,6 @@ class UserRepository {
     fun addBorrowedBook(book: String, uid: String) {
         getUserById(uid) { user ->
             user?.let {
-                Log.d("UserRepository", "addBorrowedBook: list ${user.booksTaken}, br el ${user.booksTaken.size}, knjiga ${book}")
                 databaseReference.child(uid).child("booksTaken").child(book).setValue(book)
             }
         }

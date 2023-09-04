@@ -45,34 +45,33 @@ class HomePage : AppCompatActivity() {
 
         binding.bottomNavigationView.setItemIconTintList(null)
 
-        // Retrieve the current user's ID (assuming Firebase Authentication is used)
         val userId = Firebase.auth.currentUser?.uid
 
-        // Add the code for retrieving the user's profile picture URL here
+        // preuzimanje url-a slike iz baze
         if (userId != null) {
             getUserProfilePictureUrl(userId) { profilePictureUrl ->
                 if (profilePictureUrl != null) {
                     val navView: BottomNavigationView = findViewById(R.id.bottomNavigationView)
                     val menuItem: MenuItem = navView.menu.findItem(R.id.profileFragment)
 
-                    // Load the image using Glide (ensure you have the Glide dependency in your project)
+                    // ucitavanje slike uz glide
                     Glide.with(this)
                         .load(profilePictureUrl)
                         .override(48, 48)
-                        .diskCacheStrategy(DiskCacheStrategy.NONE) // Clear cache
-                        .circleCrop() // You can add this for a circular profile picture
+                        .diskCacheStrategy(DiskCacheStrategy.NONE)
+                        .circleCrop()
                         .placeholder(R.drawable.round_account_circle_24)
                         .error(R.drawable.round_account_circle_24)
                         .into(object : CustomTarget<Drawable>() {
                             override fun onLoadCleared(placeholder: Drawable?) {
-                                // Handle the case where the image load is cleared
+                               //
                             }
 
                             override fun onResourceReady(
                                 resource: Drawable,
                                 transition: Transition<in Drawable>?
                             ) {
-                                // Set the loaded image as the icon for the "Profile" menu item
+
                                 menuItem.icon = resource
                                 Log.d(
                                     "HomePage",

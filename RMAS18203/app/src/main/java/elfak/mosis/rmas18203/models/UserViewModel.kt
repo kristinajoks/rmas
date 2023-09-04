@@ -1,6 +1,5 @@
 package elfak.mosis.rmas18203.models
 
-import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -31,7 +30,6 @@ class UserViewModel : ViewModel() {
 
         repository.getUserIdByName(firstName, lastName) { userId: String? ->
             resultLiveData.postValue(userId)
-            Log.d("nebitno",  "UserViewModel: ${userId}")
         }
 
         return resultLiveData
@@ -42,7 +40,6 @@ class UserViewModel : ViewModel() {
         val placeViewModel = PlaceViewModel()
         placeViewModel.getPlaceIdByName(name) { placeId: String? ->
             resultLiveData.postValue(placeId)
-            Log.d("nebitno",  "UserViewModel: ${placeId}")
         }
 
         return resultLiveData

@@ -25,7 +25,7 @@
                 android:layout_height="wrap_content"
                 android:text="Naziv: "
                 android:textColor="@color/black"
-                android:textSize="20dp"
+                android:textSize="16dp"
                 android:textStyle="bold"
                 android:layout_marginEnd="10dp"/>
 

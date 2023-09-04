@@ -46,13 +46,12 @@ class ProfileFragment : Fragment() {
         database = FirebaseDatabase.getInstance()
         userReference = database.getReference("users").child(auth.currentUser?.uid ?: "")
 
-        // Load user data from the Realtime Database
         userReference.addValueEventListener(object : ValueEventListener {
             override fun onDataChange(snapshot: DataSnapshot) {
+                if(isAdded){
                 if (snapshot.exists()) {
                     val user = snapshot.getValue(User::class.java)
 
-                    // Update UI with user data
                     user?.let {
                         binding.firstNameTextView.text = it.firstName
                         binding.lastNameTextView.text = it.lastName
@@ -60,41 +59,39 @@ class ProfileFragment : Fragment() {
                         binding.pointsTextView.text = "Points: ${it.points}"
 
                         val items = it.booksRead.values.toTypedArray()
-                        val adapter = ArrayAdapter(requireContext(), android.R.layout.simple_list_item_1, items)
+                        val adapter = ArrayAdapter(
+                            requireContext(),
+                            android.R.layout.simple_list_item_1,
+                            items
+                        )
                         val possibilities = it.booksTaken.values.toTypedArray()
 
 
-                        Log.d("nebitno",  "ProfileFragment: ${items}")
                         binding.listView.adapter = adapter
                         val pp = it.points
 
                         binding.addBookButton.setOnClickListener {
-                            Log.d("nebitno",  "ProfileFragment: ${items}")
 
 
-                            if(!binding.bookNameEditText.text.isNullOrEmpty()){
+                            if (!binding.bookNameEditText.text.isNullOrEmpty()) {
                                 val bookName = binding.bookNameEditText.text.toString()
 
-                                if(!possibilities.contains(bookName)){
+                                if (!possibilities.contains(bookName)) {
                                     return@setOnClickListener
                                 }
 
                                 val userViewModel = UserViewModel()
-                                userViewModel.addReadBook(bookName, auth.currentUser!!.uid )
-//                                userViewModel.addPointsBook(3, auth.currentUser!!.uid)
+                                userViewModel.addReadBook(bookName, auth.currentUser!!.uid)
 
                                 binding.bookNameEditText.text.clear()
                             }
                         }
-//
-//                        binding.editProfileButton.setOnClickListener {
-//                            //OPEN THE DIALOG HERE
-//                        }
 
-                        // Load profile image using Glide
+
                         Glide.with(fragmentContext)
                             .load(it.profileImg)
                             .into(binding.profileImageView)
+                    }
                     }
                 }
             }

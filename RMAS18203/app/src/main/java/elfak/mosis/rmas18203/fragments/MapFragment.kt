@@ -144,15 +144,6 @@ class MapFragment : Fragment() {
         val radijus : EditText = dialogView.findViewById(R.id.radijus)
         val poslInterakcija : CheckBox = dialogView.findViewById(R.id.poslInterakcija)
 
-        //autor
-//        userViewModel.allUsers.observe(viewLifecycleOwner, { users ->
-//            for (user in users) {
-//                val checkBox = CheckBox(requireContext())
-//                checkBox.text = "${user.firstName} ${user.lastName}"
-//                checkBox.tag = "${user.firstName} ${user.lastName}"
-//                autorLayout.addView(checkBox)
-//            }
-//        })
         autorLayout.visibility = View.GONE
 
         //tip
@@ -236,12 +227,11 @@ class MapFragment : Fragment() {
 
             // Capture radius value
             val radijusValue = radijus.text.toString()
-            var radiusValue = if (radijusValue.isNullOrEmpty()) {
+            var radiusValue = if (radijusValue.isNullOrEmpty() || !radijusValue.matches(Regex("[0-9.]+"))) {
                 0.0
             } else {
                 radijusValue.toDouble()
             }
-            Log.d("nebitno",  "rad: $radiusValue")
 
 
             if(!radijusValue.isNullOrEmpty() && !radijusValue.matches(Regex("[0-9.]+"))){
@@ -267,7 +257,6 @@ class MapFragment : Fragment() {
 
             filterPlaces(filterOptions)
 
-            //mozda treba ocistiti polja
 
             dialog.dismiss()
         }
@@ -288,55 +277,12 @@ class MapFragment : Fragment() {
         var filteredPlaces : ArrayList<Place> = ArrayList()
 
 
-//        if (!filterOptions.selectedAuthors.isEmpty()) {
-//            //
-//            optionsSelectedNum++
-//
-//            val totalAuthorTasks = filterOptions.selectedAuthors.count() //
-//            for (selectedAuthor in filterOptions.selectedAuthors) {
-//                val firstName = selectedAuthor.split(" ")[0]
-//                val lastName = selectedAuthor.split(" ")[1]
-//
-////                userViewModel.getUserByName(firstName, lastName).observe(viewLifecycleOwner) { userId ->
-////                    userId?.let {
-////                        if (!userId.isEmpty()) {
-////                            Log.d("nebitno",  "MapFragment: $userId")
-////                            val places: ArrayList<Place> = placeViewModel.getPlacesByCreatorID(userId)
-////                            for (p in places) {
-////                                Log.d("nebitno",  "MapFragment: ${p.name}")
-////                                if (!filteredPlaces.contains(p)) {
-////                                    filteredPlaces += p
-////                                    Log.d("nebitno",  "MapFragment: ${filteredPlaces.count()}")
-////                                }
-////                            }
-////                        }
-////                    }
-////                }
-//                val places = placeViewModel.getPlacesByCreatorName(firstName, lastName)
-//                for (p in places) {
-//                    Log.d("nebitno", "MapFragment: ${p.name}")
-//                    if (!filteredPlaces.contains(p)) {
-//                        filteredPlaces += p
-//                        Log.d("nebitno", "MapFragment: ${filteredPlaces.count()}")
-//                    }
-//                }
-//
-//
-//
-//                //checkAllTasksCompleted(filteredPlaces, totalAuthorTasks)
-//            }
-//        }
-
-
 
         if(!filterOptions.selectedTypes.isEmpty()){
             optionsSelectedNum++
 
             for(selectedType in filterOptions.selectedTypes) {
-                Log.d("nebitno",  "selectedtyopes1: ${filteredPlaces.count()}")
-
                 var places : ArrayList<Place> = placeViewModel.getPlacesByType(selectedType)
-                Log.d("nebitno",  "types2 ret: ${places.count()}")
 
                 if(optionsSelectedNum > 1 && !filteredPlaces.isEmpty()){
                     //ako je broj opcija veci od jedan, onda se filtriraju vec filtrirani
@@ -346,23 +292,19 @@ class MapFragment : Fragment() {
                     for (p in places) {
                         if (!filteredPlaces.contains(p))
                             filteredPlaces += p
-                        Log.d("nebitno", "types3: ${filteredPlaces.count()}")
 
                     }
                 }
             }
         }
 
-        Log.d("nebitno",  "tip purp: ${filteredPlaces.count()}")
 
         if(!filterOptions.selectedPurposes.isEmpty()){
             optionsSelectedNum++
 
             for(selectedPurpose in filterOptions.selectedPurposes) {
-                Log.d("nebitno",  "purp1: ${filteredPlaces.count()}")
 
                 var places : ArrayList<Place> = placeViewModel.getPlacesByPurpose(selectedPurpose)
-                Log.d("nebitno",  "pur2 ret: ${places.count()}")
 
                 if(optionsSelectedNum > 1 && !filteredPlaces.isEmpty()){
                     //ako je broj opcija veci od jedan, onda se filtriraju vec filtrirani
@@ -372,22 +314,18 @@ class MapFragment : Fragment() {
                     for (p in places) {
                         if (!filteredPlaces.contains(p))
                             filteredPlaces += p
-                        Log.d("nebitno", "pur3: ${filteredPlaces.count()}")
 
                     }
                 }
             }
         }
 
-        Log.d("nebitno",  "purp dat: ${filteredPlaces.count()}")
 
         if(!filterOptions.startDate.isNullOrEmpty() && !filterOptions.endDate.isNullOrEmpty() || !filterOptions.startTime.isNullOrEmpty() && !filterOptions.endTime.isNullOrEmpty()){
             optionsSelectedNum++
 
             var places : ArrayList<Place> = placeViewModel.getPlacesByDT(filterOptions.startDate.toString(), filterOptions.endDate.toString(), filterOptions.startTime.toString(), filterOptions.endTime.toString())
-            Log.d("nebitno", filterOptions.startDate.toString() + filterOptions.endDate.toString() + filterOptions.startTime.toString() + filterOptions.endTime.toString())
-            Log.d("nebitno",  "dat1: ${filteredPlaces.count()}")
-            Log.d("nebitno",  "dat2 ret: ${places.count()}")
+
 
             if(optionsSelectedNum > 1 && !filteredPlaces.isEmpty()){
                 //ako je broj opcija veci od jedan, onda se filtriraju vec filtrirani
@@ -397,7 +335,6 @@ class MapFragment : Fragment() {
                 for (p in places) {
                     if (!filteredPlaces.contains(p))
                         filteredPlaces += p
-                    Log.d("nebitno", "dat3: ${filteredPlaces.count()}")
 
                 }
             }
@@ -414,8 +351,6 @@ class MapFragment : Fragment() {
                 var places: ArrayList<Place> =
                     placeViewModel.getPlacesByRadius(lat, lng, filterOptions.radius)
 
-                Log.d("nebitno", "rad1: ${filteredPlaces.count()}")
-                Log.d("nebitno", "rad2 ret: ${places.count()}")
 
                 if(optionsSelectedNum > 1 && !filteredPlaces.isEmpty()){
                     //ako je broj opcija veci od jedan, onda se filtriraju vec filtrirani
@@ -425,23 +360,19 @@ class MapFragment : Fragment() {
                     for (p in places) {
                         if (!filteredPlaces.contains(p))
                             filteredPlaces += p
-                        Log.d("nebitno", "rad3: ${filteredPlaces.count()}")
 
                     }
                 }
             }
         }
 
-        Log.d("nebitno",  "dat posl: ${filteredPlaces.count()}")
 
         if(filterOptions.isLastInteractionSelected){
-            Log.d("nebitno",  "posl1: ${filteredPlaces.count()}")
 
             firebaseAuth = FirebaseAuth.getInstance()
             var user = firebaseAuth.currentUser
             if(user != null){
                 var place : Place = placeViewModel.getPlaceByLastVisitedID(user.uid)
-                Log.d("nebitno",  "posl2 ret: ${place}, ${user.uid}")
 
                 if(optionsSelectedNum > 1 && !filteredPlaces.isEmpty()){
                     //ako je broj opcija veci od jedan, onda se filtriraju vec filtrirani
@@ -451,7 +382,6 @@ class MapFragment : Fragment() {
 //                    filteredPlaces += place
                     filteredPlaces.clear()
                     filteredPlaces.add(place)
-                    Log.d("nebitno",  "posl3: ${filteredPlaces.count()}")
 
                 }
             }
@@ -475,7 +405,6 @@ class MapFragment : Fragment() {
             marker.title = place.name
             marker.snippet = place.description
 
-            //marker.icon = resources.getDrawable(R.drawable.img) //proba
 
             map.overlays.add(marker)
         }
@@ -486,10 +415,6 @@ class MapFragment : Fragment() {
         clearButton.visibility = View.VISIBLE
 
         map.invalidate()
-//        val transaction = requireFragmentManager().beginTransaction()
-//        transaction.replace(R.id.map_fragment, MapFragment())
-//        transaction.addToBackStack(null)
-//        transaction.commit()
     }
 
     private fun showTimePickerDialog(vremeOd: EditText) {
@@ -511,20 +436,6 @@ class MapFragment : Fragment() {
         timePickerDialog.show()
     }
 
-    private fun checkAllTasksCompleted(filteredPlaces: ArrayList<Place>, totalTasks: Int) {
-        completedTasks++
-        if (completedTasks == totalTasks) {
-            compl = true
-            // All tasks are completed, you can now process filteredPlaces
-            if (filteredPlaces.isEmpty()) {
-                Toast.makeText(activity, "Nema rezultata", Toast.LENGTH_SHORT).show()
-            } else {
-                Toast.makeText(activity, "Broj mesta: ${filteredPlaces.count()}", Toast.LENGTH_SHORT).show()
-                // Process and display filteredPlaces here
-            }
-            completedTasks = 0
-        }
-    }
 
     private fun showDatePickerDialog(editText: EditText) {
         val calendar = Calendar.getInstance()
@@ -598,152 +509,148 @@ class MapFragment : Fragment() {
 
     private var currentInfoWindow: InfoWindow? = null
     private fun setOnMapClickOverlay() {
-        //revise
-        map.overlays.add(object : org.osmdroid.views.overlay.Overlay() {
-            override fun onSingleTapConfirmed(e: MotionEvent?, mapView: MapView?): Boolean {
-                val projection = mapView?.projection
-                val location = GeoPoint(projection?.fromPixels(e!!.x.toInt(), e!!.y.toInt()))
+                map.overlays.add(object : org.osmdroid.views.overlay.Overlay() {
+                    override fun onSingleTapConfirmed(e: MotionEvent?, mapView: MapView?): Boolean {
+                        val projection = mapView?.projection
+                        val location = GeoPoint(projection?.fromPixels(e!!.x.toInt(), e!!.y.toInt()))
 
-                var infow = false
+                        var infow = false
 
-                if(currentInfoWindow != null)
-                    currentInfoWindow?.close()
+                        if(currentInfoWindow != null)
+                            currentInfoWindow?.close()
 
-                val distanceTreshold = 0.1
-                val corrMarker = placeViewModel.findMarkerLocation(location, distanceTreshold, map)
-                if(corrMarker != null) {
-                    infow = true
+                        val distanceTreshold = 0.1
+                        val corrMarker = placeViewModel.findMarkerLocation(location, distanceTreshold, map)
+                        if(corrMarker != null) {
+                            infow = true
 
-                    val dialogV : View = layoutInflater.inflate(R.layout.dialog_pin, null)
-                    val dialogBuilder = AlertDialog.Builder(requireContext())
-                        .setView(dialogV)
-                    val dial = dialogBuilder.create()
+                            val dialogV : View = layoutInflater.inflate(R.layout.dialog_pin, null)
+                            val dialogBuilder = AlertDialog.Builder(requireContext())
+                                .setView(dialogV)
+                            val dial = dialogBuilder.create()
 
-                    val btnPinDelete = dialogV.findViewById<Button>(R.id.btnPinDelete)
-                    val btnPinRate = dialogV.findViewById<Button>(R.id.btnPinRate)
-                    val btnPinInfo = dialogV.findViewById<Button>(R.id.btnPinInfo)
+                            val btnPinDelete = dialogV.findViewById<Button>(R.id.btnPinDelete)
+                            val btnPinRate = dialogV.findViewById<Button>(R.id.btnPinRate)
+                            val btnPinInfo = dialogV.findViewById<Button>(R.id.btnPinInfo)
 
-                    val plc = placeViewModel.getPlaceByLatLng(corrMarker.position.latitude, corrMarker.position.longitude)
+                            val plc = placeViewModel.getPlaceByLatLng(corrMarker.position.latitude, corrMarker.position.longitude)
 
-                    firebaseAuth = FirebaseAuth.getInstance()
+                            firebaseAuth = FirebaseAuth.getInstance()
 
-                    if(plc.creatorID == firebaseAuth.currentUser?.uid){
-                        btnPinDelete.visibility = View.VISIBLE
-                    }
-                    else{
-                        btnPinDelete.visibility = View.GONE
-                    }
-
-                    btnPinDelete.setOnClickListener {
-                        placeViewModel.deletePlace(plc)
-                        dial.dismiss()
-                    }
-
-                    btnPinInfo.setOnClickListener {
-                        dial.dismiss()
-                        corrMarker?.showInfoWindow()
-                        currentInfoWindow = corrMarker?.infoWindow
-                    }
-
-
-                    btnPinRate.setOnClickListener {
-                        dial.dismiss()
-
-                        val dialogVw: View = layoutInflater.inflate(R.layout.dialog_pin_rate, null)
-                        val dialogB = AlertDialog.Builder(requireContext())
-                            .setView(dialogVw)
-                        val dRate = dialogB.create()
-                        dRate.show()
-
-                        val checkBoxBook = dialogVw.findViewById<CheckBox>(R.id.checkBoxBook)
-                        val checkBoxEvent = dialogVw.findViewById<CheckBox>(R.id.checkBoxEvent)
-                        val bookLayout = dialogVw.findViewById<LinearLayout>(R.id.knjigaImeLayout)
-
-                        bookLayout.visibility = View.GONE
-
-                        if(plc.purpose == PlacePurpose.Pozajmica_knjiga.toString()) {
-                            checkBoxBook.visibility = View.VISIBLE
-                            checkBoxEvent.visibility = View.GONE
-                        }
-                        else if(plc.type == PlacePurpose.Literarni_događaji.toString()) {
-                            checkBoxBook.visibility = View.GONE
-                            checkBoxEvent.visibility = View.VISIBLE
-                        }
-                        else{
-                            checkBoxBook.visibility = View.VISIBLE
-                            checkBoxEvent.visibility = View.VISIBLE
-                        }
-
-                        checkBoxBook.setOnClickListener{
-                            if(checkBoxBook.isChecked) {
-                                bookLayout.visibility = View.VISIBLE
+                            if(plc.creatorID == firebaseAuth.currentUser?.uid){
+                                btnPinDelete.visibility = View.VISIBLE
                             }
                             else{
+                                btnPinDelete.visibility = View.GONE
+                            }
+
+                            btnPinDelete.setOnClickListener {
+                                placeViewModel.deletePlace(plc)
+                                dial.dismiss()
+                            }
+
+                            btnPinInfo.setOnClickListener {
+                                dial.dismiss()
+                                corrMarker?.showInfoWindow()
+                                currentInfoWindow = corrMarker?.infoWindow
+                            }
+
+
+                            btnPinRate.setOnClickListener {
+                                dial.dismiss()
+
+                                val dialogVw: View = layoutInflater.inflate(R.layout.dialog_pin_rate, null)
+                                val dialogB = AlertDialog.Builder(requireContext())
+                                    .setView(dialogVw)
+                                val dRate = dialogB.create()
+                                dRate.show()
+
+                                val checkBoxBook = dialogVw.findViewById<CheckBox>(R.id.checkBoxBook)
+                                val checkBoxEvent = dialogVw.findViewById<CheckBox>(R.id.checkBoxEvent)
+                                val bookLayout = dialogVw.findViewById<LinearLayout>(R.id.knjigaImeLayout)
+
                                 bookLayout.visibility = View.GONE
-                            }
-                        }
 
-                        val bookName = dialogVw.findViewById<EditText>(R.id.knjigaImeEditText)
+                                if(plc.purpose == PlacePurpose.Pozajmica_knjiga.toString()) {
+                                    checkBoxBook.visibility = View.VISIBLE
+                                    checkBoxEvent.visibility = View.GONE
+                                }
+                                else if(plc.type == PlacePurpose.Literarni_događaji.toString()) {
+                                    checkBoxBook.visibility = View.GONE
+                                    checkBoxEvent.visibility = View.VISIBLE
+                                }
+                                else{
+                                    checkBoxBook.visibility = View.VISIBLE
+                                    checkBoxEvent.visibility = View.VISIBLE
+                                }
 
-                        val submitBtn = dialogVw.findViewById<Button>(R.id.submitBtn)
-                        submitBtn.setOnClickListener {
-                            // Retrieve the RatingBar
-                            val ratingBar = dialogVw.findViewById<RatingBar>(R.id.ratingBar)
-                            val rating = ratingBar.rating.toDouble()
+                                checkBoxBook.setOnClickListener{
+                                    if(checkBoxBook.isChecked) {
+                                        bookLayout.visibility = View.VISIBLE
+                                    }
+                                    else{
+                                        bookLayout.visibility = View.GONE
+                                    }
+                                }
 
-                            // Retrieve the comment EditText
-                            val commentEditText = dialogVw.findViewById<EditText>(R.id.commentEditText)
-                            val comment = commentEditText.text.toString()
+                                val bookName = dialogVw.findViewById<EditText>(R.id.knjigaImeEditText)
 
-                            // Retrieve the CheckBoxes
-                            val hasBorrowedBook = checkBoxBook.isChecked
+                                val submitBtn = dialogVw.findViewById<Button>(R.id.submitBtn)
+                                submitBtn.setOnClickListener {
+                                    val ratingBar = dialogVw.findViewById<RatingBar>(R.id.ratingBar)
+                                    val rating = ratingBar.rating.toDouble()
 
-                            val hasAttendedEvent = checkBoxEvent.isChecked
+                                    val commentEditText = dialogVw.findViewById<EditText>(R.id.commentEditText)
+                                    val comment = commentEditText.text.toString()
 
-                            // Now you can use these values as needed, e.g., pass them to your ViewModel or perform other actions.
-
-                            if(rating == 0.0 && comment.isEmpty() && !hasBorrowedBook && !hasAttendedEvent){
-                                Toast.makeText(activity, "Morate popuniti barem jedno polje", Toast.LENGTH_SHORT).show()
-                                return@setOnClickListener
-                            }
+                                    val hasBorrowedBook = checkBoxBook.isChecked
+                                    val hasAttendedEvent = checkBoxEvent.isChecked
 
 
+                                    if(rating == 0.0 && comment.isEmpty() && !hasBorrowedBook && !hasAttendedEvent){
+                                        Toast.makeText(activity, "Morate popuniti barem jedno polje", Toast.LENGTH_SHORT).show()
+                                        return@setOnClickListener
+                                    }
 
-                            if(rating != 0.0){
-                                placeViewModel.addRatingToRatings(rating, plc, firebaseAuth.currentUser?.uid.toString())
-                                userViewModel.addPointsToUser(1, firebaseAuth.currentUser?.uid.toString(), plc.name)
-                            }
+                                    var pointsToAdd = 0
 
-                            if(comment.isNotEmpty()){
-                                placeViewModel.addComment(comment, plc, firebaseAuth.currentUser?.uid.toString())
-                                userViewModel.addPointsToUser(2, firebaseAuth.currentUser?.uid.toString(), plc.name)
-                            }
+                                    if(rating != 0.0){
+                                        placeViewModel.addRatingToRatings(rating, plc, firebaseAuth.currentUser?.uid.toString())
+                                        pointsToAdd += 1
+                                    }
 
-                            if(hasBorrowedBook){
+                                    if(comment.isNotEmpty()){
+                                        placeViewModel.addComment(comment, plc, firebaseAuth.currentUser?.uid.toString())
+                                        pointsToAdd += 2
+                                    }
 
-                                val book = bookName.text.toString()
+                                    if(hasBorrowedBook){
 
-                                if(!book.isNullOrEmpty()){
-                                    Log.d("knjiga",  "MapFragment: ${book}")
-                                    userViewModel.addBorrowedBook(book, firebaseAuth.currentUser?.uid.toString())
-                                    userViewModel.addPointsToUser(3, firebaseAuth.currentUser?.uid.toString(), plc.name)
+                                        val book = bookName.text.toString()
+
+                                        if(!book.isNullOrEmpty()){
+                                            Log.d("knjiga",  "MapFragment: ${book}")
+                                            userViewModel.addBorrowedBook(book, firebaseAuth.currentUser?.uid.toString())
+                                            pointsToAdd += 3
+                                        }
+                                    }
+
+                                    if(hasAttendedEvent){
+                                        pointsToAdd += 5
+                                    }
+
+                                    if(pointsToAdd>0)
+                                        userViewModel.addPointsToUser(pointsToAdd, firebaseAuth.currentUser?.uid.toString(), plc.name)
+
+                                    dRate.dismiss()
                                 }
                             }
 
-                            if(hasAttendedEvent){
-                                userViewModel.addPointsToUser(5, firebaseAuth.currentUser?.uid.toString(), plc.name)
-                            }
-
-                            // Dismiss the dialog
-                            dRate.dismiss()
+                            dial.show()
                         }
-                    }
 
-                    dial.show()
-                }
-
-                if(infow)
-                    return true //resicu soon
+                        if(infow)
+                            return true
 
                 val dialogView: View = layoutInflater.inflate(R.layout.dialog_pin_add_info, null)
 
@@ -870,7 +777,6 @@ class MapFragment : Fragment() {
 
         map.overlays.add(myLocationOverlay)
     }
-
 
     override fun onResume() {
         super.onResume()

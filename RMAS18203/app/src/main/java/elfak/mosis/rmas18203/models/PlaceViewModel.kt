@@ -1,5 +1,6 @@
 package elfak.mosis.rmas18203.models
 
+import PlacesAdapter
 import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -25,23 +26,22 @@ class PlaceViewModel : ViewModel() {
     fun savePlace(place: Place) : Boolean {
         val firebasePlace = place.toFirebasePlace()
 
-        var ret : Boolean = true //proba
+        var ret : Boolean = true
         val newPlaceRef = databaseReference.push()
-        newPlaceRef.setValue(firebasePlace) //ovde zamenjeno
+        newPlaceRef.setValue(firebasePlace)
             .addOnSuccessListener {
                 ret = true
             }
 
         val userRef = FirebaseDatabase.getInstance().getReference("users").child(place.creatorID.toString())
         userRef.child("myPlaces").child(newPlaceRef.key.toString()).setValue(newPlaceRef.key.toString()).addOnFailureListener{
-            ret = false //caskom zakomm
+            ret = false
         }
 
         return ret
     }
 
 
-    //mora da se izmene fje jer mora id place a ne name
     fun addRatingToRatings(rating: Double, place: Place, uid: String){
 
         var newRating = 0.0
@@ -102,19 +102,17 @@ class PlaceViewModel : ViewModel() {
                 val places = ArrayList<Place>()
 
                 for (placeSnapshot in snapshot.children) {
-                    // Deserialize the DataSnapshot into a Place object
-                    val fPlace = placeSnapshot.getValue(FirebasePlace::class.java) //i ovde izmenjeno
+                    // deserijalizacija
+                    val fPlace = placeSnapshot.getValue(FirebasePlace::class.java)
                     val place = fPlace?.toPlace()
                     place?.let {
                         places.add(it)
                     }
                 }
 
-                // Update your placesList with the fetched data
                 placesList.clear()
                 placesList.addAll(places)
 
-                // Notify any observers that the data has changed
                 (placesLiveData as MutableLiveData).value = placesList
             }
 
@@ -133,9 +131,11 @@ class PlaceViewModel : ViewModel() {
     }
 
     fun deletePlace(place: Place){
+        val placesAdapter = PlacesAdapter()
         getPlaceIdByName(place.name){placeId: String? ->
             if(placeId != null){
                 databaseReference.child(placeId).removeValue()
+                placesAdapter.notifyDataSetChanged()
             }
         }
     }
@@ -215,7 +215,6 @@ class PlaceViewModel : ViewModel() {
                 places.add(place)
             }
         }
-        Log.d("nebitno", "getPlacesByCreatorID: ${places.size}")
         return places
     }
 
@@ -314,7 +313,6 @@ class PlaceViewModel : ViewModel() {
 
     fun getPlaceByLastVisitedID(id: String): Place {
         var place : Place = Place()
-        Log.d("nebitno", "getPlaceByLastVisitedID: ${id}")
         for (p in placesList) {
             if (p.lastVisitedID == id) {
                 place = p
