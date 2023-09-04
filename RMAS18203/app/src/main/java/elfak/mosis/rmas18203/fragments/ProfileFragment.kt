@@ -81,7 +81,7 @@ class ProfileFragment : Fragment() {
 
                                 val userViewModel = UserViewModel()
                                 userViewModel.addReadBook(bookName, auth.currentUser!!.uid )
-                                userViewModel.addPointsBook(3, auth.currentUser!!.uid)
+//                                userViewModel.addPointsBook(3, auth.currentUser!!.uid)
 
                                 binding.bookNameEditText.text.clear()
                             }

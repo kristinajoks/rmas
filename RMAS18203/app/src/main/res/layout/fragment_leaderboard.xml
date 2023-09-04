@@ -62,14 +62,15 @@
                 android:id="@+id/paragraph2TextView"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="     1 p \n
-        2 p\n
-        3 p\n
-        5 p"
+                android:text="      1 p \n
+     2 p\n
+     3 p\n
+     5 p"
                 android:textSize="16sp"
                 android:textStyle="bold"
                 android:textColor="#000000"
                 android:padding="8dp"
+                android:layout_marginTop="2dp"
                 android:gravity="start"
                 android:textAlignment="viewStart"
                 />
