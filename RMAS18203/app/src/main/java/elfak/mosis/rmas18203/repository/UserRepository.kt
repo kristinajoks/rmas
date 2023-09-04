@@ -119,6 +119,7 @@ class UserRepository {
         getUserById(uid) { user ->
             user?.let {
                 databaseReference.child(uid).child("booksRead").child(book).setValue(book)
+                databaseReference.child(uid).child("booksTaken").child(book).removeValue()
             }
         }
     }
@@ -128,6 +129,15 @@ class UserRepository {
         placeViewModel.getPlaceIdByName(placeName) { placeId: String? ->
             databaseReference.child(uid).child("lastVisitedID").setValue(placeId)
             placeViewModel.addLastUser(placeId!!, uid)
+        }
+    }
+
+    fun addPointsBook(points: Int, uid: String) {
+        val user = getUserById(uid) { user ->
+            user?.let {
+                val newPoints = user.points?.plus(points)
+                databaseReference.child(uid).child("points").setValue(newPoints)
+            }
         }
     }
 

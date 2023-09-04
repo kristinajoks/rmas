@@ -629,13 +629,14 @@ class MapFragment : Fragment() {
 
                     if(plc.creatorID == firebaseAuth.currentUser?.uid){
                         btnPinDelete.visibility = View.VISIBLE
-                        btnPinDelete.setOnClickListener {
-                            placeViewModel.deletePlace(plc)
-                            dial.dismiss()
-                        }
                     }
                     else{
                         btnPinDelete.visibility = View.GONE
+                    }
+
+                    btnPinDelete.setOnClickListener {
+                        placeViewModel.deletePlace(plc)
+                        dial.dismiss()
                     }
 
                     btnPinInfo.setOnClickListener {

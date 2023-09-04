@@ -16,6 +16,7 @@ import com.google.firebase.ktx.Firebase
 import elfak.mosis.rmas18203.activities.MainActivity
 import elfak.mosis.rmas18203.data.User
 import elfak.mosis.rmas18203.databinding.FragmentProfileBinding
+import elfak.mosis.rmas18203.models.UserViewModel
 
 class ProfileFragment : Fragment() {
     private lateinit var auth: FirebaseAuth
@@ -60,23 +61,28 @@ class ProfileFragment : Fragment() {
 
                         val items = it.booksRead.values.toTypedArray()
                         val adapter = ArrayAdapter(requireContext(), android.R.layout.simple_list_item_1, items)
+                        val possibilities = it.booksTaken.values.toTypedArray()
+
 
                         Log.d("nebitno",  "ProfileFragment: ${items}")
                         binding.listView.adapter = adapter
                         val pp = it.points
 
                         binding.addBookButton.setOnClickListener {
+                            Log.d("nebitno",  "ProfileFragment: ${items}")
+
+
                             if(!binding.bookNameEditText.text.isNullOrEmpty()){
                                 val bookName = binding.bookNameEditText.text.toString()
-                                Log.d("nebitno",  "ProfileFragment: ${bookName}")
 
-                                if(!items.contains(bookName)){
+                                if(!possibilities.contains(bookName)){
                                     return@setOnClickListener
                                 }
-                                Log.d("nebitno",  "ProfileFragment: ${bookName}")
-                                userReference.child("booksTaken").child(bookName).removeValue()
-                                userReference.child("booksRead").child(bookName).setValue(bookName)
-                                userReference.child("points").setValue(pp!!.plus(3))
+
+                                val userViewModel = UserViewModel()
+                                userViewModel.addReadBook(bookName, auth.currentUser!!.uid )
+                                userViewModel.addPointsBook(3, auth.currentUser!!.uid)
+
                                 binding.bookNameEditText.text.clear()
                             }
                         }

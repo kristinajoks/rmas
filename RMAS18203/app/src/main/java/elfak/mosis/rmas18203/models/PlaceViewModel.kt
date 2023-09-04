@@ -133,7 +133,11 @@ class PlaceViewModel : ViewModel() {
     }
 
     fun deletePlace(place: Place){
-        databaseReference.child(place.name).removeValue()
+        getPlaceIdByName(place.name){placeId: String? ->
+            if(placeId != null){
+                databaseReference.child(placeId).removeValue()
+            }
+        }
     }
 
     fun getPlaceByName(name: String): Place? {

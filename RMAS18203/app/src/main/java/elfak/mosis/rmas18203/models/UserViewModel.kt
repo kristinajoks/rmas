@@ -55,13 +55,15 @@ class UserViewModel : ViewModel() {
         }
     }
 
+    fun addPointsBook(points: Int, uid: String){
+        repository.addPointsBook(points, uid)
+    }
+
     fun addBorrowedBook(book: String, uid: String) {
-        Log.d("nebitno",  "UserViewModel: ${book}")
         repository.addBorrowedBook(book, uid)
     }
 
     fun addReadBook(book: String, uid: String) {
-        Log.d("nebitno",  "UserViewModel: ${book}")
         repository.addReadBook(book, uid)
     }
 
