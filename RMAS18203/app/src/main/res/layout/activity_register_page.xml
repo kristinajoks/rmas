@@ -65,7 +65,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="Ime"
-            android:background="@color/white"
+            android:background="@drawable/round_edit_text"
             android:inputType="textPersonName"/>
 
     </com.google.android.material.textfield.TextInputLayout>
@@ -81,7 +81,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="Prezime"
-            android:background="@color/white"
+            android:background="@drawable/round_edit_text"
             android:inputType="textPersonName"/>
 
     </com.google.android.material.textfield.TextInputLayout>
@@ -97,7 +97,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="Broj telefona"
-            android:background="@color/white"
+            android:background="@drawable/round_edit_text"
             android:inputType="phone"/>
 
     </com.google.android.material.textfield.TextInputLayout>
@@ -114,7 +114,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="Email"
-            android:background="@color/white"
+            android:background="@drawable/round_edit_text"
             android:inputType="textEmailAddress"/>
 
     </com.google.android.material.textfield.TextInputLayout>
@@ -132,7 +132,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="Šifra"
-            android:background="@color/white"
+            android:background="@drawable/round_edit_text"
             android:inputType="textPassword"/>
 
     </com.google.android.material.textfield.TextInputLayout>
@@ -150,7 +150,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="Ponovi šifru"
-            android:background="@color/white"
+            android:background="@drawable/round_edit_text"
             android:inputType="textPassword"/>
 
     </com.google.android.material.textfield.TextInputLayout>

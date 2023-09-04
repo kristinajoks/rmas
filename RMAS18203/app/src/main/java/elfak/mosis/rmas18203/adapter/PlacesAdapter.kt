@@ -25,9 +25,20 @@ class PlacesAdapter : ListAdapter<Place, PlacesAdapter.PlaceViewHolder>(PlaceDif
 
         holder.nameTextView.text = place.name
         holder.descriptionTextView.text = place.description
-        holder.ratingTextView.text = place.rating.toString()
+
+        if(place.rating.toString().length>3)
+            holder.ratingTextView.text = place.rating.toString().slice(0..2)
+
+        else
+            holder.ratingTextView.text = place.rating.toString()
+
         holder.dateTextView.text = place.dateCreated
-        holder.aktTextView.text = place.purpose
+
+        if(place.purpose == PlacePurpose.Oba.toString()){
+            holder.aktTextView.text = PlacePurpose.Literarni_događaji.toString() + "\n" + PlacePurpose.Pozajmica_knjiga.toString()
+        }
+        else
+            holder.aktTextView.text = place.purpose
     }
 
     inner class PlaceViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {

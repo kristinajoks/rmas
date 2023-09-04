@@ -37,4 +37,36 @@ class UserViewModel : ViewModel() {
         return resultLiveData
     }
 
+    fun getPlaceIdByN(name: String) : LiveData<String?> {
+        val resultLiveData = MutableLiveData<String?>()
+        val placeViewModel = PlaceViewModel()
+        placeViewModel.getPlaceIdByName(name) { placeId: String? ->
+            resultLiveData.postValue(placeId)
+            Log.d("nebitno",  "UserViewModel: ${placeId}")
+        }
+
+        return resultLiveData
+    }
+
+    fun addPointsToUser(points: Int, uid: String, placeName: String){
+        getPlaceIdByN(placeName).observeForever { placeID ->
+            repository.addPointsToUser(points, uid, placeID!!)
+            addLastVisitedID(placeName, uid)
+        }
+    }
+
+    fun addBorrowedBook(book: String, uid: String) {
+        Log.d("nebitno",  "UserViewModel: ${book}")
+        repository.addBorrowedBook(book, uid)
+    }
+
+    fun addReadBook(book: String, uid: String) {
+        Log.d("nebitno",  "UserViewModel: ${book}")
+        repository.addReadBook(book, uid)
+    }
+
+    fun addLastVisitedID(placeName: String, uid: String) {
+        repository.addLastVisitedID(placeName, uid)
+    }
+
 }

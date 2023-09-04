@@ -14,7 +14,7 @@ data class Place(var name: String = "",
                  var dateCreated: String="",
                  var timeCreated : String="",
                  var comments: HashMap<String,String> = HashMap(),
-                 var ratings: HashMap<String,Number> = HashMap(),
+                 var ratingNum: Int = 0,
                  var rating: Double=0.0
                  ) : OverlayItem(name, description, GeoPoint(latitude, longitude))
 

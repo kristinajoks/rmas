@@ -8,6 +8,7 @@ import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
 import elfak.mosis.rmas18203.data.User
+import elfak.mosis.rmas18203.models.PlaceViewModel
 
 class UserRepository {
 
@@ -73,5 +74,62 @@ class UserRepository {
             }
         })
     }
+
+    fun addPointsToUser(points: Int, uid: String, placeID: String) {
+        val user = getUserById(uid) { user ->
+            user?.let {
+                val newPoints = user.points?.plus(points)
+                databaseReference.child(uid).child("points").setValue(newPoints)
+                databaseReference.child(uid).child("lastVisitedID").setValue(placeID)
+                val placeViewModel = PlaceViewModel()
+                placeViewModel.addLastUser(placeID, uid)
+            }
+        }
+    }
+
+    fun getUserById(uid: String, callback: (User?) -> Unit) {
+        databaseReference.child(uid).addListenerForSingleValueEvent(object : ValueEventListener {
+            override fun onDataChange(snapshot: DataSnapshot) {
+                try {
+                    val user = snapshot.getValue(User::class.java)
+                    callback(user)
+                } catch (e: Exception) {
+                    e.printStackTrace()
+                    callback(null)
+                }
+            }
+
+            override fun onCancelled(error: DatabaseError) {
+                Log.d("UserRepository", "getUserById: ${error.message}")
+                callback(null)
+            }
+        })
+    }
+
+    fun addBorrowedBook(book: String, uid: String) {
+        getUserById(uid) { user ->
+            user?.let {
+                Log.d("UserRepository", "addBorrowedBook: list ${user.booksTaken}, br el ${user.booksTaken.size}, knjiga ${book}")
+                databaseReference.child(uid).child("booksTaken").child(book).setValue(book)
+            }
+        }
+    }
+
+    fun addReadBook(book: String, uid: String) {
+        getUserById(uid) { user ->
+            user?.let {
+                databaseReference.child(uid).child("booksRead").child(book).setValue(book)
+            }
+        }
+    }
+
+    fun addLastVisitedID(placeName: String, uid: String) {
+        val placeViewModel = PlaceViewModel()
+        placeViewModel.getPlaceIdByName(placeName) { placeId: String? ->
+            databaseReference.child(uid).child("lastVisitedID").setValue(placeId)
+            placeViewModel.addLastUser(placeId!!, uid)
+        }
+    }
+
 
 }

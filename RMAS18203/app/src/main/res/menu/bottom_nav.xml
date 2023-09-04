@@ -2,7 +2,7 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
 
     <item
-        android:id="@+id/home"
+        android:id="@+id/mapFragment"
         android:icon="@drawable/round_home_24"
         android:title="@string/home"
         android:enabled="true"
@@ -10,7 +10,7 @@
         />
 
     <item
-        android:id="@+id/places"
+        android:id="@+id/placesFragment"
         android:icon="@drawable/round_view_list_24"
         android:title="@string/places"
         android:visible="true"
@@ -18,13 +18,13 @@
         />
 
     <item android:title="@string/leaderboard"
-        android:id="@+id/leaderboard"
+        android:id="@+id/leaderboardFragment"
         android:icon="@drawable/round_groups_2_24"
         android:visible="true"
         android:enabled="true"/>
 
     <item
-        android:id="@+id/profile"
+        android:id="@+id/profileFragment"
         android:icon="@drawable/round_account_circle_24"
         android:title="@string/profile"
         android:visible="true"

@@ -48,6 +48,19 @@
                 android:contentDescription="filter"
                 android:drawableLeft="@drawable/round_tune_24" />
 
+            <Button
+                android:id="@+id/clearButton"
+                android:layout_width="60dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="end"
+                android:layout_margin="1dp"
+                android:layout_marginEnd="5dp"
+                android:layout_marginRight="80dp"
+                android:background="@drawable/round_btn_light"
+                android:backgroundTint="@color/darkgray"
+                android:contentDescription="filter"
+                android:drawableLeft="@drawable/round_clear_24" />
+
 
             <Space
                 android:layout_width="0dp"

@@ -12,6 +12,9 @@ import elfak.mosis.rmas18203.adapter.FirebasePlace
 import elfak.mosis.rmas18203.adapter.toFirebasePlace
 import elfak.mosis.rmas18203.adapter.toPlace
 import elfak.mosis.rmas18203.data.Place
+import org.osmdroid.util.GeoPoint
+import org.osmdroid.views.MapView
+import org.osmdroid.views.overlay.Marker
 import java.text.SimpleDateFormat
 
 class PlaceViewModel : ViewModel() {
@@ -36,6 +39,61 @@ class PlaceViewModel : ViewModel() {
 
         return ret
     }
+
+
+    //mora da se izmene fje jer mora id place a ne name
+    fun addRatingToRatings(rating: Double, place: Place, uid: String){
+
+        var newRating = 0.0
+        val newRatingNum = 1 + place.ratingNum
+
+        if(place.ratingNum > 0) {
+            newRating = (place.rating * place.ratingNum + rating) / newRatingNum
+        }
+        else{
+            newRating = rating
+        }
+
+        getPlaceIdByName(place.name){placeId: String? ->
+            if(placeId != null){
+                databaseReference.child(placeId).child("rating").setValue(newRating)
+                databaseReference.child(placeId).child("ratingNum").setValue(newRatingNum)
+            }
+        }
+    }
+
+    fun addComment(comment: String, place: Place, uid: String){
+        getPlaceIdByName(place.name){placeId: String? ->
+            if(placeId != null){
+                databaseReference.child(placeId).child("comments").child(uid).setValue(comment)
+            }
+        }
+    }
+
+    fun getPlaceIdByName(name: String, callback: (String?) -> Unit) {
+        databaseReference.addListenerForSingleValueEvent(object : ValueEventListener {
+            override fun onDataChange(snapshot: DataSnapshot) {
+                try {
+                    val placeId = snapshot.children
+                        .firstOrNull { dataSnapshot ->
+                            val place = dataSnapshot.getValue(Place::class.java)
+                            place?.name == name
+                        }?.key
+
+
+                    callback(placeId)
+                } catch (e: Exception) {
+                    e.printStackTrace()
+                    callback(null)
+                }
+            }
+
+            override fun onCancelled(error: DatabaseError) {
+                callback(null)
+            }
+        })
+    }
+
 
     fun fetchPlaces(){
 
@@ -72,6 +130,10 @@ class PlaceViewModel : ViewModel() {
 
     fun removePlace(place: Place) {
         placesList.remove(place)
+    }
+
+    fun deletePlace(place: Place){
+        databaseReference.child(place.name).removeValue()
     }
 
     fun getPlaceByName(name: String): Place? {
@@ -153,6 +215,17 @@ class PlaceViewModel : ViewModel() {
         return places
     }
 
+    fun getPlacesByCreatorName(firstName: String, lastName: String) : ArrayList<Place> {
+        var places : ArrayList<Place> = ArrayList<Place>()
+
+        val userViewModel = UserViewModel()
+        userViewModel.getUserByName(firstName, lastName).observeForever { uid ->
+            places = getPlacesByCreatorID(uid.toString())
+        }
+        return places
+
+    }
+
     fun getLastVisitedPlace(userID : String) : Place {
         var place : Place = Place()
         for (p in placesList) {
@@ -177,16 +250,18 @@ class PlaceViewModel : ViewModel() {
     fun getPlacesByRadius(latitude: Double, longitude: Double, radius: Double) : ArrayList<Place> {
         var places : ArrayList<Place> = ArrayList<Place>()
         for (place in placesList) {
-            if (distance(latitude, longitude, place.latitude, place.longitude) <= radius) {
+            var d : Double = distance(latitude, longitude, place.latitude, place.longitude)
+            if (d <= radius ) {
+                Log.d("nebitno", "getPlacesByRadius: ${place.name}, ${d}, ${radius}")
                 places.add(place)
             }
         }
         return places
     }
 
-    //revise
+
     private fun distance(latitude: Double, longitude: Double, latitude1: Double, longitude1: Double): Double {
-        val radius = 6371000
+        val radius = 6371
         val dLat = Math.toRadians(latitude1 - latitude)
         val dLon = Math.toRadians(longitude1 - longitude)
         val a = (Math.sin(dLat / 2) * Math.sin(dLat / 2)
@@ -195,6 +270,31 @@ class PlaceViewModel : ViewModel() {
         val c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a))
         val distance = radius * c
         return distance
+    }
+
+    fun findMarkerLocation(location: GeoPoint, distanceTreshold: Double, map: MapView) : Marker?
+    {
+        for(place in placesLiveData.value.orEmpty()){
+            val distance = distance(location.latitude, location.longitude, place.latitude, place.longitude)
+            if(distance <= distanceTreshold){
+                val corrMarker = findCorrespondingMarker(place, map)
+                return corrMarker
+            }
+        }
+        return null
+    }
+
+    private fun findCorrespondingMarker(place: Place, map: MapView): Marker? {
+        for(ov in map.overlays){
+            if(ov is Marker){
+                val marker = ov as Marker
+                if(marker.position.latitude == place.latitude &&
+                    marker.position.longitude == place.longitude){
+                    return marker
+                }
+            }
+        }
+        return null
     }
 
     fun getPlacesByPurpose(purpose: String): ArrayList<Place> {
@@ -210,12 +310,27 @@ class PlaceViewModel : ViewModel() {
 
     fun getPlaceByLastVisitedID(id: String): Place {
         var place : Place = Place()
+        Log.d("nebitno", "getPlaceByLastVisitedID: ${id}")
         for (p in placesList) {
             if (p.lastVisitedID == id) {
                 place = p
             }
         }
         return place
+    }
+
+    fun getPlaceByLatLng(latitude: Double, longitude: Double): Place {
+        var place : Place = Place()
+        for (p in placesList) {
+            if (p.latitude == latitude && p.longitude == longitude) {
+                place = p
+            }
+        }
+        return place
+    }
+
+    fun addLastUser(placeID: String, uid: String) {
+        databaseReference.child(placeID).child("lastVisitedID").setValue(uid)
     }
 
 }

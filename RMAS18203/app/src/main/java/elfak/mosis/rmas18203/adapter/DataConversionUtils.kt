@@ -16,7 +16,8 @@ data class FirebasePlace(
     var dateCreated: String = "",
     var timeCreated: String = "",
     var comments: HashMap<String,String> = HashMap(),
-    var ratings: HashMap<String, Number> = HashMap()
+    var ratingNum: Int = 0,
+    var rating: Double = 0.0
 )
 
 fun Place.toFirebasePlace(): FirebasePlace {
@@ -32,7 +33,8 @@ fun Place.toFirebasePlace(): FirebasePlace {
         this.dateCreated,
         this.timeCreated,
         this.comments,
-        this.ratings
+        this.ratingNum,
+        this.rating
     )
 }
 
@@ -49,6 +51,7 @@ fun FirebasePlace.toPlace(): Place {
         this.dateCreated,
         this.timeCreated,
         this.comments,
-        this.ratings
+        this.ratingNum,
+        this.rating
     )
 }

@@ -5,8 +5,8 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
-import elfak.mosis.rmas18203.data.User
 import elfak.mosis.rmas18203.R
+import elfak.mosis.rmas18203.data.User
 
 class MyAdapter : RecyclerView.Adapter<MyAdapter.MyViewHolder>() {
 
@@ -31,7 +31,7 @@ class MyAdapter : RecyclerView.Adapter<MyAdapter.MyViewHolder>() {
     override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
         val currentItem = userList[position]
 
-        holder.rank.text = (position + 1).toString()
+        holder.rank.text = "${(position + 1).toString()}."
 
         holder.firstName.text = currentItem.firstName
         holder.lastName.text = currentItem.lastName

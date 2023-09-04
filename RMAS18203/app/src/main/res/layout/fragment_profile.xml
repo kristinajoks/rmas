@@ -5,6 +5,12 @@
     android:layout_height="match_parent"
     android:padding="16dp">
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:id="@+id/upperLayout">
+
     <ImageView
         android:id="@+id/profileImageView"
         android:layout_width="120dp"
@@ -13,8 +19,19 @@
         android:layout_centerHorizontal="true"
         android:src="@drawable/default_profile_image"
         android:layout_marginTop="10dp"
+        android:layout_marginRight="10dp"
+        android:layout_marginBottom="10dp"
         android:contentDescription="Profile Picture"
         />
+
+
+        <LinearLayout
+            android:id="@+id/upperRightLayout"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_marginLeft="20dp"
+            android:layout_marginTop="15dp">
 
     <TextView
         android:id="@+id/firstNameTextView"
@@ -35,14 +52,32 @@
         android:layout_marginTop="15dp"
         android:text="Last Name"
         android:textSize="18sp" />
+        </LinearLayout>
+
+<!--        <Button-->
+<!--            android:id="@+id/editProfileButton"-->
+<!--            android:layout_width="60dp"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:layout_alignParentStart="true"-->
+<!--            android:layout_alignParentEnd="true"-->
+<!--            android:layout_marginStart="15dp"-->
+<!--            android:layout_marginTop="40dp"-->
+<!--            android:layout_marginEnd="40dp"-->
+<!--            android:background="@drawable/round_btn"-->
+<!--            android:contentDescription="Edit"-->
+<!--            android:drawableLeft="@drawable/round_edit_24"-->
+<!--            android:textSize="15sp" />-->
+
+
+    </LinearLayout>
 
     <TextView
         android:id="@+id/usernameTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/lastNameTextView"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="15dp"
+        android:layout_below="@+id/upperLayout"
+        android:layout_marginTop="10dp"
+        android:layout_marginLeft="10dp"
         android:text="Username"
         android:textSize="18sp" />
 
@@ -51,10 +86,71 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/usernameTextView"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="15dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginLeft="10dp"
         android:text="Points: 0"
         android:textSize="18sp" />
+
+    <TextView
+        android:id="@+id/listTitleTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/pointsTextView"
+        android:layout_marginTop="10dp"
+        android:layout_marginLeft="10dp"
+        android:text="Pročitane knjige:"
+        android:textSize="18sp" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_below="@id/listTitleTextView"
+        android:layout_marginTop="20dp">
+
+        <LinearLayout
+            android:layout_width="150dp"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:id="@+id/booksReadLayout"
+            android:layout_marginRight="30dp">
+
+            <ListView
+                android:id="@+id/listView"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:id="@+id/booksToReadLayout">
+
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Unesite naziv knjige"
+                android:id="@+id/bookNameEditText"/>
+
+        <Button
+            android:id="@+id/addBookButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/pointsTextView"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentEnd="true"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginEnd="40dp"
+            android:background="@drawable/round_btn"
+            android:contentDescription="Add book"
+            android:text="Dodaj knjigu"
+            android:textSize="15sp" />
+        </LinearLayout>
+
+    </LinearLayout>
 
     <Button
         android:id="@+id/logOffButton"
@@ -65,7 +161,7 @@
         android:layout_alignParentEnd="true"
         android:layout_marginStart="260dp"
         android:layout_marginEnd="40dp"
-        android:layout_marginTop="280dp"
+        android:layout_marginTop="330dp"
         android:drawableLeft="@drawable/round_logout_24"
         android:textSize="15sp"
         android:contentDescription="Log out"

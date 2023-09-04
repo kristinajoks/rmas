@@ -1,0 +1,112 @@
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:padding="16dp">
+
+    <!-- Rating -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center_vertical">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Ocena:"
+            android:textSize="20sp"
+            />
+
+        <!-- Star Rating -->
+        <RatingBar
+            android:id="@+id/ratingBar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:numStars="5"
+            android:rating="0.0"
+            android:stepSize="1.0"
+            android:layout_gravity="center_vertical"/>
+
+    </LinearLayout>
+
+    <!-- Comment -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_marginTop="16dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Komentar:"
+            android:textSize="20sp"/>
+
+        <EditText
+            android:id="@+id/commentEditText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Unesite komentar..."
+            android:backgroundTint="@color/lightpurple"
+            android:inputType="textMultiLine"
+            android:minLines="3"
+            android:gravity="top"
+            android:layout_marginTop="8dp"/>
+    </LinearLayout>
+
+    <!-- Checkboxes -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_marginTop="1dp">
+
+        <CheckBox
+            android:id="@+id/checkBoxBook"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Pozajmio/la sam knjigu"/>
+
+        <LinearLayout
+            android:id="@+id/knjigaImeLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Koju?"
+                android:textSize="20dp"/>
+
+            <EditText
+                android:id="@+id/knjigaImeEditText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:hint="Ime knjige"
+                android:inputType="text"
+                android:layout_marginLeft="50dp"
+                android:maxLines="1" />
+
+        </LinearLayout>
+
+        <CheckBox
+            android:id="@+id/checkBoxEvent"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Posetio/la sam događaj"/>
+
+    </LinearLayout>
+
+    <!-- Submit Button -->
+    <Button
+        android:id="@+id/submitBtn"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background ="@drawable/round_btn"
+        android:text="Oceni"
+        android:layout_marginTop="16dp"/>
+
+</LinearLayout>
